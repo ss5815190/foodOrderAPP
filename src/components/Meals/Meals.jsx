@@ -1,48 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import classes from '../../styles/Meals.module.css';
 import MealItem from './MealItem';
-
-const DUMMY_MEALS = [
-  {
-    id: 'm1',
-    name: 'Sushi',
-    description: 'Finest fish and veggies',
-    price: 22.99,
-  },
-  {
-    id: 'm2',
-    name: 'Schnitzel',
-    description: 'A german specialty!',
-    price: 16.5,
-  },
-  {
-    id: 'm3',
-    name: 'Barbecue Burger',
-    description: 'American, raw, meaty',
-    price: 12.99,
-  },
-  {
-    id: 'm4',
-    name: 'Green Bowl',
-    description: 'Healthy...and green...',
-    price: 18.99,
-  },
-];
-const mealsList = DUMMY_MEALS.map((meal) => (
-
-  <ul key={meal.id}>
-    <MealItem
-      id={meal.id}
-      name={meal.name}
-      description={meal.description}
-      price={meal.price}
-    />
-
-  </ul>
-
-));
+import { CartContext } from '../../context/Context';
 
 function Meals() {
+  const { mealItem } = useContext(CartContext);
   return (
     <>
       <section className={classes.summary}>
@@ -58,7 +20,17 @@ function Meals() {
       </section>
       <section className={classes.meals}>
         <div className={classes.card}>
-          {mealsList}
+          {mealItem.map((meal) => (
+            <ul key={meal.id}>
+              <MealItem
+                id={meal.id}
+                name={meal.name}
+                description={meal.description}
+                price={meal.price}
+              />
+
+            </ul>
+          ))}
         </div>
       </section>
     </>
