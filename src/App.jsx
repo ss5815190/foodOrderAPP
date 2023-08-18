@@ -1,7 +1,6 @@
 import React from 'react';
-import Meals from './components/Meals';
-import './App.css';
 import Header from './components/Header';
+import Meals from './components/Meals/Meals';
 
 function App() {
   return (
