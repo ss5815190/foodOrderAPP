@@ -7,7 +7,9 @@ function MealItem({
   id, name, description, price,
 }) {
   const amountInputRef = useRef();
-  const { cart, setCart } = useContext(CartContext);
+  const {
+    cart, setCart, totalQuantity, setTotalQuantity,
+  } = useContext(CartContext);
   // 檢查購物車有沒有該商品
   const checkCart = (checkId, quantity) => {
     if (CartContext.length !== 0) {
@@ -18,6 +20,7 @@ function MealItem({
         // 傳進來的quantity是字串 轉成數字加上去
         updatedCart[index].quantity += parseInt(quantity, 10);
         setCart(updatedCart);
+        setTotalQuantity((totalQuantity + parseInt(quantity, 10)));
       } else {
         setCart((prev) => [...prev,
           {
@@ -27,6 +30,7 @@ function MealItem({
             price,
             quantity: 1,
           }]);
+        setTotalQuantity((totalQuantity + parseInt(quantity, 10)));
       }
     } else {
       setCart((prev) => [...prev,
@@ -37,6 +41,7 @@ function MealItem({
           price,
           num: 1,
         }]);
+      setTotalQuantity(totalQuantity + parseInt(quantity, 10));
     }
   };
   // 加入購物車
