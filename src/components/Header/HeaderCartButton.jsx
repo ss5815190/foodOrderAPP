@@ -1,12 +1,16 @@
 import React, { useContext, useState, useEffect } from 'react';
-import classes from '../styles/Header.module.css';
-import CartIcon from './UI/CartIcon';
-import { CartContext } from '../context/Context';
+import classes from '../../styles/Header.module.css';
+import CartIcon from '../UI/CartIcon';
+import { CartContext } from '../../context/Context';
 
 function HeaderCartButton() {
   const [btnIsHighlighted, setBtnIsHighlighted] = useState(false);
-  const { totalQuantity } = useContext(CartContext);
+  const { totalQuantity, setCartIsShown } = useContext(CartContext);
   const btnClasses = `${classes.button} ${btnIsHighlighted ? classes.bump : ''}`;
+  // 讓結帳畫面顯示出來
+  const showCartHandler = () => {
+    setCartIsShown(true);
+  };
   useEffect(() => {
     if (totalQuantity === 0) {
       return;
@@ -22,7 +26,7 @@ function HeaderCartButton() {
     };
   }, [totalQuantity]);
   return (
-    <button type="button" className={btnClasses} onClick={() => console.log('clicked')}>
+    <button type="button" className={btnClasses} onClick={showCartHandler}>
       <span className={classes.icon}>
         <CartIcon />
       </span>

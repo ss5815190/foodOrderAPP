@@ -6,6 +6,8 @@ export const CartContext = createContext();
 export function CartContextProvider({ children }) {
   const [cart, setCart] = useState([]);
   const [totalQuantity, setTotalQuantity] = useState(0);
+  const [cartIsShown, setCartIsShown] = useState(false);
+
   const DUMMY_MEALS = [
     {
       id: 'm1',
@@ -37,7 +39,14 @@ export function CartContextProvider({ children }) {
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     <CartContext.Provider value={{
-      cart, setCart, mealItem, setMealItem, totalQuantity, setTotalQuantity,
+      cart,
+      setCart,
+      mealItem,
+      setMealItem,
+      totalQuantity,
+      setTotalQuantity,
+      cartIsShown,
+      setCartIsShown,
     }}
     >
       {children}
