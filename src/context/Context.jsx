@@ -42,15 +42,10 @@ export function CartContextProvider({ children }) {
   const cartReducer = (state, action) => {
     switch (action.type) {
       case 'ADD_TO_CART':
-        setTotalQuantity(totalQuantity + 1);
-        setTotalAmount(totalAmount + action.payload.price);
         return [...state, action.payload];
       case 'INCREMENT_QUANTITY':
         return state.map((item) => {
           if (item.id === action.payload.id) {
-            setTotalQuantity(totalQuantity + action.payload.quantity);
-            setTotalAmount(totalAmount
-              + (item.price * action.payload.quantity));
             return { ...item, quantity: item.quantity + action.payload.quantity };
           }
           return item;
@@ -58,8 +53,6 @@ export function CartContextProvider({ children }) {
       case 'DECREASE_QUANTITY':
         return state.map((item) => {
           if (item.id === action.payload.id) {
-            setTotalQuantity(totalQuantity - 1);
-            setTotalAmount(totalAmount - item.price);
             if (item.quantity === 1) {
               return null;
             }
@@ -73,7 +66,13 @@ export function CartContextProvider({ children }) {
   };
 
   const [cart, dispatch] = useReducer(cartReducer, []);
-  useEffect(() => { console.log('Cart ', cart, totalAmount.toFixed(2)); }, [cart]);
+  useEffect(() => {
+    const newTotalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
+    const newTotalAmount = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+    setTotalQuantity(newTotalQuantity);
+    setTotalAmount(newTotalAmount);
+    console.log('Cart ', cart, newTotalAmount.toFixed(2));
+  }, [cart]);
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     <CartContext.Provider value={{
