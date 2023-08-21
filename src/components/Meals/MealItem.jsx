@@ -7,7 +7,7 @@ function MealItem({
   id, name, description, price,
 }) {
   const amountInputRef = useRef();
-  const { Cart, dispatch } = useContext(CartContext);
+  const { cart, dispatch } = useContext(CartContext);
   // const {
   //   cart, setCart, totalQuantity, setTotalQuantity,
   // } = useContext(CartContext);
@@ -47,7 +47,7 @@ function MealItem({
   // };
   // 加入購物車
   const checkCart = (checkId, quantity) => {
-    const existingItemIndex = Cart.findIndex((item) => item.id === checkId);
+    const existingItemIndex = cart.findIndex((item) => item.id === checkId);
     // 購物車有該商品的話
     if (existingItemIndex !== -1) {
       // 增加數量
