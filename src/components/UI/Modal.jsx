@@ -28,11 +28,11 @@ function ModalOverlay({ children }) {
 const portalElement = document.getElementById('overlays');
 
 // eslint-disable-next-line react/prop-types
-function Modal({ children, showCartHandler }) {
+function Modal({ children, onClose }) {
   // 隱藏結帳畫面
   return (
     <>
-      {ReactDOM.createPortal(<Backdrop onClose={showCartHandler} />, portalElement)}
+      {ReactDOM.createPortal(<Backdrop onClose={onClose} />, portalElement)}
       {ReactDOM.createPortal(
         <ModalOverlay>{children}</ModalOverlay>,
         portalElement,
