@@ -9,7 +9,7 @@ export function CartContextProvider({ children }) {
   // const [cart, setCart] = useState([]);
   const [totalQuantity, setTotalQuantity] = useState(0);
   const [cartIsShown, setCartIsShown] = useState(false);
-
+  const [totalAmount, setTotalAmount] = useState(0);
   const DUMMY_MEALS = [
     {
       id: 'm1',
@@ -43,11 +43,14 @@ export function CartContextProvider({ children }) {
     switch (action.type) {
       case 'ADD_TO_CART':
         setTotalQuantity(totalQuantity + 1);
+        setTotalAmount(totalAmount + action.payload.price);
         return [...state, action.payload];
       case 'INCREMENT_QUANTITY':
         return state.map((item) => {
           if (item.id === action.payload.id) {
             setTotalQuantity(totalQuantity + action.payload.quantity);
+            setTotalAmount(totalAmount
+              + (item.price * action.payload.quantity));
             return { ...item, quantity: item.quantity + action.payload.quantity };
           }
           return item;
@@ -57,8 +60,8 @@ export function CartContextProvider({ children }) {
     }
   };
 
-  const [Cart, dispatch] = useReducer(cartReducer, []);
-  useEffect(() => { console.log('Cart ', Cart); }, [Cart]);
+  const [cart, dispatch] = useReducer(cartReducer, []);
+  useEffect(() => { console.log('Cart ', cart, totalAmount.toFixed(2)); }, [cart]);
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     <CartContext.Provider value={{
@@ -68,7 +71,9 @@ export function CartContextProvider({ children }) {
       setTotalQuantity,
       cartIsShown,
       setCartIsShown,
-      Cart,
+      totalAmount,
+      setTotalAmount,
+      cart,
       dispatch,
     }}
     >
