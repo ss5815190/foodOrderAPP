@@ -55,6 +55,18 @@ export function CartContextProvider({ children }) {
           }
           return item;
         });
+      case 'DECREASE_QUANTITY':
+        return state.map((item) => {
+          if (item.id === action.payload.id) {
+            setTotalQuantity(totalQuantity - 1);
+            setTotalAmount(totalAmount - item.price);
+            if (item.quantity === 1) {
+              return null;
+            }
+            return { ...item, quantity: item.quantity - 1 };
+          }
+          return item;
+        }).filter(Boolean);
       default:
         return state;
     }
