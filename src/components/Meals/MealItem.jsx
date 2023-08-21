@@ -48,7 +48,7 @@ function MealItem({
   // 加入購物車
   const checkCart = (checkId, quantity) => {
     const existingItemIndex = Cart.findIndex((item) => item.id === checkId);
-
+    // 購物車有該商品的話
     if (existingItemIndex !== -1) {
       // 增加數量
       dispatch({
