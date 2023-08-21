@@ -2,7 +2,10 @@ import React from 'react';
 import classes from '../../styles/CartItem.module.css';
 
 // eslint-disable-next-line react/prop-types
-function CartItem({ name, price, amount }) {
+function CartItem({
+  // eslint-disable-next-line react/prop-types
+  name, price, amount, onRemove, onAdd,
+}) {
   return (
     <li className={classes['cart-item']}>
       <div>
@@ -17,8 +20,8 @@ function CartItem({ name, price, amount }) {
         </div>
       </div>
       <div className={classes.actions}>
-        {/* <button type="button" onClick={onRemove}>−</button>
-        <button type="button" onClick={onAdd}>+</button> */}
+        <button type="button" onClick={onRemove}>−</button>
+        <button type="button" onClick={onAdd}>+</button>
       </div>
     </li>
   );

@@ -5,12 +5,28 @@ import Modal from '../UI/Modal';
 import CartItem from './CartItem';
 
 function Cart() {
-  const { setCartIsShown, totalAmount, cart } = useContext(CartContext);
-  const showCartHandler = () => {
+  const {
+    setCartIsShown, totalAmount, cart, dispatch,
+  } = useContext(CartContext);
+  const disableCartHandler = () => {
     setCartIsShown(false);
   };
+  // 購物車頁面增加商品
+  const cartItemAddHandler = (id) => {
+    dispatch({
+      type: 'INCREMENT_QUANTITY',
+      payload: { id, quantity: 1 },
+    });
+  };
+  // 購物車頁面減少商品
+  const cartItemRemoveHandler = (id) => {
+    dispatch({
+      type: 'DECREASE_QUANTITY',
+      payload: { id },
+    });
+  };
   return (
-    <Modal onClose={showCartHandler}>
+    <Modal onClose={disableCartHandler}>
       <ul className={classes['cart-items']}>
         {cart.map((item) => (
           <CartItem
@@ -18,8 +34,8 @@ function Cart() {
             name={item.name}
             amount={item.quantity}
             price={item.price}
-            // onRemove={cartItemRemoveHandler.bind(null, item.id)}
-            // onAdd={cartItemAddHandler.bind(null, item)}
+            onRemove={() => cartItemRemoveHandler(item.id)}
+            onAdd={() => cartItemAddHandler(item.id)}
           />
         ))}
       </ul>
@@ -32,7 +48,7 @@ function Cart() {
         </span>
       </div>
       <div className={classes.actions}>
-        <button className={classes['button--alt']} onClick={showCartHandler} type="button">
+        <button className={classes['button--alt']} onClick={disableCartHandler} type="button">
           Close
         </button>
         {cart.length > 0 && <button className={classes.button} type="button">Order</button>}
