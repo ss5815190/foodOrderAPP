@@ -8,6 +8,7 @@ function Cart() {
   const {
     setCartIsShown, totalAmount, cart, dispatch,
   } = useContext(CartContext);
+  // 隱藏結帳畫面
   const disableCartHandler = () => {
     setCartIsShown(false);
   };

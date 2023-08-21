@@ -29,7 +29,6 @@ const portalElement = document.getElementById('overlays');
 
 // eslint-disable-next-line react/prop-types
 function Modal({ children, onClose }) {
-  // 隱藏結帳畫面
   return (
     <>
       {ReactDOM.createPortal(<Backdrop onClose={onClose} />, portalElement)}
