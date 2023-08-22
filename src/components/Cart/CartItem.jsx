@@ -1,7 +1,6 @@
 import React from 'react';
 import classes from '../../styles/CartItem.module.css';
 
-// eslint-disable-next-line react/prop-types
 function CartItem({
   // eslint-disable-next-line react/prop-types
   name, price, amount, onRemove, onAdd,
