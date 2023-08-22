@@ -46,16 +46,19 @@ export function CartContextProvider({ children }) {
           if (item.id === action.payload.id) {
             return { ...item, quantity: item.quantity + action.payload.quantity };
           }
+          // 如果目前處理的不是目標商品，就保持原樣返回
           return item;
         });
       case 'DECREASE_QUANTITY':
         return state.map((item) => {
           if (item.id === action.payload.id) {
             if (item.quantity === 1) {
+              // 返回 null 會在後面的 .filter(Boolean)過濾掉
               return null;
             }
             return { ...item, quantity: item.quantity - 1 };
           }
+          // 如果目前處理的不是目標商品，就保持原樣返回
           return item;
         }).filter(Boolean);
       default:
@@ -69,7 +72,6 @@ export function CartContextProvider({ children }) {
     const newTotalAmount = cart.reduce((total, item) => total + item.price * item.quantity, 0);
     setTotalQuantity(newTotalQuantity);
     setTotalAmount(newTotalAmount);
-    // console.log('Cart ', cart, newTotalAmount.toFixed(2));
   }, [cart]);
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
