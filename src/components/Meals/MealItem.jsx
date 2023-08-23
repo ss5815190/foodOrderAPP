@@ -8,43 +8,7 @@ function MealItem({
 }) {
   const amountInputRef = useRef();
   const { cart, dispatch } = useContext(CartContext);
-  // const {
-  //   cart, setCart, totalQuantity, setTotalQuantity,
-  // } = useContext(CartContext);
-  // 檢查購物車有沒有該商品
-  // const checkCart = (checkId, quantity) => {
-  //   if (CartContext.length !== 0) {
-  //     const index = cart.findIndex((item) => item.id === checkId);
-  //     // 找到的話更改數量
-  //     if (index !== -1) {
-  //       const updatedCart = [...cart];
-  //       // 傳進來的quantity是字串 轉成數字加上去
-  //       updatedCart[index].quantity += parseInt(quantity, 10);
-  //       setCart(updatedCart);
-  //       setTotalQuantity((totalQuantity + parseInt(quantity, 10)));
-  //     } else {
-  //       setCart((prev) => [...prev,
-  //         {
-  //           id: amountInputRef.current.id,
-  //           name,
-  //           description,
-  //           price,
-  //           quantity: 1,
-  //         }]);
-  //       setTotalQuantity((totalQuantity + parseInt(quantity, 10)));
-  //     }
-  //   } else {
-  //     setCart((prev) => [...prev,
-  //       {
-  //         id: amountInputRef.current.id,
-  //         name,
-  //         description,
-  //         price,
-  //         num: 1,
-  //       }]);
-  //     setTotalQuantity(totalQuantity + parseInt(quantity, 10));
-  //   }
-  // };
+
   // 加入購物車
   const checkCart = (checkId, quantity) => {
     const existingItemIndex = cart.findIndex((item) => item.id === checkId);
@@ -69,7 +33,6 @@ function MealItem({
       });
     }
   };
-
   const onSubmit = (e) => {
     e.preventDefault();
     checkCart(amountInputRef.current.id, amountInputRef.current.value);
