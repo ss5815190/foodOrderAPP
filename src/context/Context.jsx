@@ -9,33 +9,34 @@ export function CartContextProvider({ children }) {
   const [totalQuantity, setTotalQuantity] = useState(0);
   const [cartIsShown, setCartIsShown] = useState(false);
   const [totalAmount, setTotalAmount] = useState(0);
-  const dummyMeals = [
-    {
-      id: 'm1',
-      name: 'Sushi',
-      description: 'Finest fish and veggies',
-      price: 22.99,
-    },
-    {
-      id: 'm2',
-      name: 'Schnitzel',
-      description: 'A german specialty!',
-      price: 16.5,
-    },
-    {
-      id: 'm3',
-      name: 'Barbecue Burger',
-      description: 'American, raw, meaty',
-      price: 12.99,
-    },
-    {
-      id: 'm4',
-      name: 'Green Bowl',
-      description: 'Healthy...and green...',
-      price: 18.99,
-    },
-  ];
-  const [mealItem, setMealItem] = useState(dummyMeals);
+  const [mealItem, setMealItem] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const api = async () => {
+      try {
+        const res = await fetch(
+          'https://food-app-65bd1-default-rtdb.firebaseio.com/meals.json',
+        );
+        const apiData = await res.json();// 物件
+
+        const updateData = Object.keys(apiData).reduce((acc, key) => {
+          const info = apiData[key];
+          return acc.concat({
+            id: key,
+            name: info.name,
+            description: info.description,
+            price: info.price,
+          });
+        }, []);
+        setMealItem(updateData);
+        setIsLoading(false);
+        console.log('一開始的資料', updateData);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    api();
+  }, []);
 
   const cartReducer = (state, action) => {
     switch (action.type) {
@@ -86,6 +87,8 @@ export function CartContextProvider({ children }) {
       setTotalAmount,
       cart,
       dispatch,
+      isLoading,
+      setIsLoading,
     }}
     >
       {children}
