@@ -5,12 +5,12 @@ import Cart from './components/Cart/Cart';
 import { CartContext } from './context/Context';
 
 function App() {
-  const { cartIsShown } = useContext(CartContext);
+  const { cartIsShown, isLoading } = useContext(CartContext);
   return (
     <div className="App">
       {cartIsShown && <Cart />}
       <Header />
-      <Meals />
+      {!isLoading && <Meals />}
     </div>
   );
 }

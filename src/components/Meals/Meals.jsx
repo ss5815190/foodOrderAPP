@@ -5,6 +5,7 @@ import { CartContext } from '../../context/Context';
 
 function Meals() {
   const { mealItem } = useContext(CartContext);
+
   return (
     <>
       <section className={classes.summary}>

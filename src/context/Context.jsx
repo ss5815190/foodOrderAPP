@@ -62,6 +62,8 @@ export function CartContextProvider({ children }) {
           // 如果目前處理的不是目標商品，就保持原樣返回
           return item;
         }).filter(Boolean);
+      case 'CLEAR':
+        return [];
       default:
         return state;
     }
