@@ -45,12 +45,12 @@ function Cart() {
 
   const modalAction = (
     <div className={classes.actions}>
-      <button className={classes['button--alt']} onClick={disableCartHandler} type="button">
+      <button className={`${classes['button--alt']} ${classes.button}`} onClick={disableCartHandler} type="button">
         Close
       </button>
       {cart.length > 0 && (
       <button
-        className={classes.button}
+        className={classes.orderButton}
         onClick={() => setIsCheckout(true)}
         type="button"
       >

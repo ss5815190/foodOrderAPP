@@ -19,8 +19,8 @@ function CartItem({
         </div>
       </div>
       <div className={classes.actions}>
-        <button type="button" onClick={onRemove}>−</button>
-        <button type="button" onClick={onAdd}>+</button>
+        <button className={classes.addButton} type="button" onClick={onRemove}>−</button>
+        <button className={classes.decButton} type="button" onClick={onAdd}>+</button>
       </div>
     </li>
   );
